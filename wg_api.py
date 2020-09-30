@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def hello_world():
+def index():
     return "API description"
 
 
@@ -17,3 +17,7 @@ def get_quote():
     result.headers['Content-Type'] = 'text/json'
     result.headers['Access-Control-Allow-Origin'] = '*'
     return result
+
+
+if __name__ == "__main__":
+    app.run()
