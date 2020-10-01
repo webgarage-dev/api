@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response
+from flask import Flask, make_response
 import requests
 app = Flask(__name__)
 
@@ -8,10 +8,11 @@ def index():
     return "API description"
 
 
-@app.route("/get-quote", methods=["POST"])
-def get_quote():
-    api_language_selector = request.args.get("language_selector", "en")
-    api_url = f"https://api.forismatic.com/api/1.0/?method=getQuote&lang={api_language_selector}&format=json"
+# -------------------------- project QUOTES --------------------------
+
+@app.route("/quotes/get/<lang>")
+def getquote(lang):
+    api_url = f"https://api.forismatic.com/api/1.0/?method=getQuote&lang={lang}&format=json"
     quote_json = requests.get(api_url).content
     result = make_response(quote_json)
     result.headers['Content-Type'] = 'text/json'
