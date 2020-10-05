@@ -11,6 +11,7 @@ def index():
 
 # -------------------------- project QUOTES --------------------------
 
+
 @app.route("/quotes/get/<lang>")
 def getquote(lang):
     mode = os.environ.get("WG_API_MODE")
@@ -19,7 +20,9 @@ def getquote(lang):
     result = make_response(quote_json)
     result.headers['Content-Type'] = 'text/json'
     if mode == "debug":
-        result.headers['Access-Control-Allow-Origin'] = '*'
+        result.headers['Access-Control-Allow-Origin'] = "*"
+    else:
+        result.headers['Access-Control-Allow-Origin'] = "https://rigs.webgarage.dev"
     return result
 
 
