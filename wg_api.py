@@ -13,7 +13,7 @@ def index():
 
 @app.route("/quotes/get/<lang>")
 def getquote(lang):
-    mode = os.environ.get("MODE")
+    mode = os.environ.get("WG_API_MODE")
     api_url = f"https://api.forismatic.com/api/1.0/?method=getQuote&lang={lang}&format=json"
     quote_json = requests.get(api_url).content
     result = make_response(quote_json)
