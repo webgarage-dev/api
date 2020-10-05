@@ -1,6 +1,6 @@
 from flask import Flask, make_response
 import requests
-import os
+from settings import WG_API_MODE, WG_CORS_DOMAIN
 app = Flask(__name__)
 
 
@@ -14,15 +14,14 @@ def index():
 
 @app.route("/quotes/get/<lang>")
 def getquote(lang):
-    mode = os.environ.get("WG_API_MODE")
     api_url = f"https://api.forismatic.com/api/1.0/?method=getQuote&lang={lang}&format=json"
     quote_json = requests.get(api_url).content
     result = make_response(quote_json)
     result.headers['Content-Type'] = 'text/json'
-    if mode == "debug":
+    if WG_API_MODE == "debug":
         result.headers['Access-Control-Allow-Origin'] = "*"
     else:
-        result.headers['Access-Control-Allow-Origin'] = "https://rigs.webgarage.dev"
+        result.headers['Access-Control-Allow-Origin'] = WG_CORS_DOMAIN
     return result
 
 
