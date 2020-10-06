@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "API description"
+    return "API description here"
 
 
 # -------------------------- project QUOTES --------------------------
