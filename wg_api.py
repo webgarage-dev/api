@@ -1,7 +1,7 @@
 import requests
 import json
 from flask import Flask, make_response, jsonify
-from settings import WG_API_MODE, WG_CORS_DOMAIN
+from settings import WG_API_MODE, WG_CORS_DOMAIN, UNSPLASH_ACCOUNT_KEY
 app = Flask(__name__)
 
 
@@ -30,7 +30,21 @@ def getquote(lang):
     return result
 
 
+# -------------------------- project UNSPLASH QUOTES --------------------------
+
+@app.route("/unifscroll/photos/get/<count>")
+def get_photos(count=30):
+    api_url = f"https://api.unsplash.com/photos/random/?client_id={UNSPLASH_ACCOUNT_KEY}&count={count}"
+    print(api_url)
+    result = make_response(requests.get(api_url).content)
+    if WG_API_MODE == "debug":
+        result.headers['Access-Control-Allow-Origin'] = "*"
+    else:
+        result.headers['Access-Control-Allow-Origin'] = WG_CORS_DOMAIN
+    return result
+
 # -------------------------- RUN --------------------------
+
 
 if __name__ == "__main__":
     app.run()
