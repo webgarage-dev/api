@@ -32,8 +32,9 @@ def getquote(lang):
 
 # -------------------------- project UNSPLASH QUOTES --------------------------
 
-@app.route("/unifscroll/photos/get/<count>")
-def get_photos(count=30):
+@app.route("/unifscroll/photos/get")
+def get_photos():
+    count = 30
     api_url = f"https://api.unsplash.com/photos/random/?client_id={UNSPLASH_ACCOUNT_KEY}&count={count}"
     print(api_url)
     result = make_response(requests.get(api_url).content)
