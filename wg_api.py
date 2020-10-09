@@ -32,7 +32,7 @@ def getquote(lang):
 
 # -------------------------- project UNSPLASH QUOTES --------------------------
 
-@app.route("/unifscroll/photos/get")
+@app.route("/uninfscroll/photos/get")
 def get_photos():
     count = 30
     api_url = f"https://api.unsplash.com/photos/random/?client_id={UNSPLASH_ACCOUNT_KEY}&count={count}"
