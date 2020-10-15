@@ -2,6 +2,7 @@ import requests
 import json
 from flask import Flask, make_response, jsonify
 from settings import WG_API_MODE, WG_CORS_DOMAIN, UNSPLASH_ACCESS_KEY
+from utils import cors_header_value
 app = Flask(__name__)
 
 
@@ -23,10 +24,7 @@ def getquote(lang):
     }
     result = make_response(jsonify(result_dict))
     result.headers['Content-Type'] = 'text/json'
-    if WG_API_MODE == "debug":
-        result.headers['Access-Control-Allow-Origin'] = "*"
-    else:
-        result.headers['Access-Control-Allow-Origin'] = WG_CORS_DOMAIN
+    result.headers["Access-Control-Allow-Origin"] = cors_header_value()
     return result
 
 
